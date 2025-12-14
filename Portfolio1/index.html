@@ -1,0 +1,822 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mohamed Rizwan S.K | 3D Professional Portfolio</title>
+
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" as="style">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg1: #1d1d2c;
+      --bg2: #3b185f;
+      --bg3: #5c2e91;
+      --neon: #ff00d4;
+      --text: #ffffff;
+      --border-soft: rgba(0,0,0,0.4);
+    }
+
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
+      background-size: 300% 300%;
+      animation: bgAnim 15s infinite alternate;
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    @keyframes bgAnim {
+      0% { background-position: left; }
+      100% { background-position: right; }
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 10px 15px;
+      border-radius: 50px;
+      font-weight: bold;
+      cursor: pointer;
+      background: linear-gradient(45deg, #ff00d4, #00ffd5);
+      color: #fff;
+      box-shadow: 0 0 15px var(--neon);
+      z-index: 999;
+      border: none;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: 0.3s;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 25px var(--neon);
+    }
+
+    /* Glow Cursor */
+    .cursor {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background: var(--neon);
+      border-radius: 50%;
+      mix-blend-mode: screen;
+      filter: blur(6px);
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 250px;
+      position: fixed;
+      height: 100vh;
+      padding: 20px;
+      background: rgba(255,255,255,0.07);
+      backdrop-filter: blur(12px);
+      border-right: 2px solid var(--border-soft);
+      box-shadow: 6px 0 15px rgba(0,0,0,0.4);
+      transform: translateZ(40px);
+    }
+
+    .sidebar img {
+      width: 100%;
+      height: 220px;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 0 18px var(--neon);
+    }
+
+    .sidebar a {
+      display: block;
+      text-decoration: none;
+      color: var(--text);
+      background: rgba(255,255,255,0.08);
+      padding: 12px;
+      margin-top: 12px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: bold;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 0 8px rgba(0,0,0,0.4);
+      transition: .3s;
+    }
+
+    .sidebar a:hover {
+      background: var(--neon);
+      box-shadow: 0 0 20px var(--neon);
+    }
+
+    /* Main Content */
+    .main {
+      margin-left: 270px;
+      padding: 40px;
+    }
+
+    section {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+      padding: 40px;
+      border-radius: 20px;
+      margin-bottom: 40px;
+      border: 2px solid var(--border-soft);
+      box-shadow: 0 0 25px rgba(0,0,0,0.35);
+      transform-style: preserve-3d;
+      transition: .3s ease;
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: var(--neon);
+      border-left: 5px solid var(--neon);
+      padding-left: 12px;
+    }
+
+    /* Cards Grid */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.09);
+      border-radius: 15px;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 0 15px rgba(0,0,0,0.35);
+      padding: 25px;
+      transform-style: preserve-3d;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+
+    /* Hover & 3D rotate effect */
+    .card:hover {
+      box-shadow: 0 0 35px var(--neon);
+    }
+
+    /* Neon Button */
+    .btn {
+      display: inline-block;
+      padding: 12px 22px;
+      color: #fff;
+      font-weight: bold;
+      background: linear-gradient(45deg, #ff00f7, #00ffd5, #0095ff, #7a00ff);
+      animation: btnGlow 6s linear infinite;
+      background-size: 400% 400%;
+      border-radius: 10px;
+      margin-top: 12px;
+      text-decoration: none;
+      box-shadow: 0 0 15px var(--neon);
+      transition: .25s;
+    }
+
+    .btn:hover {
+      transform: scale(1.07);
+      box-shadow: 0 0 25px var(--neon);
+    }
+
+    @keyframes btnGlow {
+      0%{background-position:0% 50%;}
+      50%{background-position:100% 50%;}
+      100%{background-position:0% 50%;}
+    }
+
+    /* Contact Form */
+    #contact-form input,
+    #contact-form textarea {
+      width: 100%;
+      padding: 15px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.10);
+      border: 2px solid var(--border-soft);
+      color: var(--text);
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+      transition: .3s;
+    }
+
+    #contact-form input:focus,
+    #contact-form textarea:focus {
+      box-shadow: 0 0 18px var(--neon);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .sidebar { display: none; }
+      .main { margin-left: 0; }
+    }
+  </style>
+  <style>
+    /* ================================
+       🌈 GLOBAL THEME
+    =============================== */
+    :root {
+      --bg1: #1d1d2c;
+      --bg2: #3b185f;
+      --bg3: #5c2e91;
+      --neon: #ff00d4;
+      --text: #ffffff;
+      --border-soft: rgba(0,0,0,0.4);
+    }
+
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
+      background-size: 300% 300%;
+      animation: bgAnim 15s infinite alternate;
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    @keyframes bgAnim {
+      0% { background-position: left; }
+      100% { background-position: right; }
+    }
+
+    /* ================================
+       🌙 NIGHT/MORNING TOGGLE BUTTON
+    =============================== */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 10px 15px;
+      border-radius: 50px;
+      font-weight: bold;
+      cursor: pointer;
+      background: linear-gradient(45deg, #ff00d4, #00ffd5);
+      color: #fff;
+      box-shadow: 0 0 15px var(--neon);
+      z-index: 999;
+      border: none;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: 0.3s;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 25px var(--neon);
+    }
+
+    /* ================================
+       🔮 GLOW CURSOR
+    =============================== */
+    .cursor {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background: var(--neon);
+      border-radius: 50%;
+      mix-blend-mode: screen;
+      filter: blur(6px);
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* ================================
+       📌 SIDEBAR (3D Glass)
+    =============================== */
+    .sidebar {
+      width: 250px;
+      position: fixed;
+      height: 100vh;
+      padding: 20px;
+      background: rgba(255,255,255,0.07);
+      backdrop-filter: blur(12px);
+      border-right: 2px solid var(--border-soft);
+      box-shadow: 6px 0 15px rgba(0,0,0,0.4);
+      transform: translateZ(40px);
+    }
+
+    .sidebar img {
+      width: 100%;
+      height: 220px;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 0 18px var(--neon);
+    }
+
+    .sidebar a {
+      display: block;
+      text-decoration: none;
+      color: var(--text);
+      background: rgba(255,255,255,0.08);
+      padding: 12px;
+      margin-top: 12px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: bold;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 0 8px rgba(0,0,0,0.4);
+      transition: .3s;
+    }
+
+    .sidebar a:hover {
+      background: var(--neon);
+      box-shadow: 0 0 20px var(--neon);
+    }
+
+    /* ================================
+       🟪 MAIN CONTENT + 3D SECTIONS
+    =============================== */
+    .main {
+      margin-left: 270px;
+      padding: 40px;
+    }
+
+    section {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+      padding: 40px;
+      border-radius: 20px;
+      margin-bottom: 40px;
+      border: 2px solid var(--border-soft);
+      box-shadow: 0 0 25px rgba(0,0,0,0.35);
+      transform-style: preserve-3d;
+      transform: translateZ(20px);
+      transition: .3s ease;
+    }
+
+    section:hover {
+      transform: translateZ(40px) scale(1.02);
+      box-shadow: 0 0 35px var(--neon);
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: var(--neon);
+      border-left: 5px solid var(--neon);
+      padding-left: 12px;
+    }
+
+    /* ================================
+       ⭐ 3D CARDS
+    =============================== */
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+      gap: 20px;
+    }
+
+    .card {
+      padding: 25px;
+      border-radius: 15px;
+      background: rgba(255,255,255,0.09);
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 0 15px rgba(0,0,0,0.35);
+      transform: perspective(600px) translateZ(30px);
+      transition: .3s;
+    }
+
+    .card:hover {
+      transform: perspective(600px) translateZ(60px) scale(1.05);
+      box-shadow: 0 0 30px var(--neon);
+    }
+
+    /* ================================
+       🔥 NEON BUTTON
+    =============================== */
+    .btn {
+      display: inline-block;
+      padding: 12px 22px;
+      color: #fff;
+      font-weight: bold;
+      background: linear-gradient(45deg, #ff00f7, #00ffd5, #0095ff, #7a00ff);
+      animation: btnGlow 6s linear infinite;
+      background-size: 400% 400%;
+      border-radius: 10px;
+      margin-top: 12px;
+      text-decoration: none;
+      box-shadow: 0 0 15px var(--neon);
+      transition: .25s;
+    }
+
+    .btn:hover {
+      transform: scale(1.07);
+      box-shadow: 0 0 25px var(--neon);
+    }
+
+    @keyframes btnGlow {
+      0%{background-position:0% 50%;}
+      50%{background-position:100% 50%;}
+      100%{background-position:0% 50%;}
+    }
+
+    /* ================================
+       ⭐ CONTACT FORM 3D
+    =============================== */
+    #contact-form input,
+    #contact-form textarea {
+      width: 100%;
+      padding: 15px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.10);
+      border: 2px solid var(--border-soft);
+      color: var(--text);
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+      transition: .3s;
+    }
+
+    #contact-form input:focus,
+    #contact-form textarea:focus {
+      box-shadow: 0 0 18px var(--neon);
+    }
+
+    /* ================================
+       RESPONSIVE
+    =============================== */
+    @media (max-width: 900px) {
+      .sidebar { display: none; }
+      .main { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Glow cursor -->
+  <div class="cursor" id="cursor"></div>
+
+  <!-- Night / Morning Toggle -->
+  <button class="theme-toggle" id="themeToggle">🌙 Night</button>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" aria-label="Sidebar with navigation and profile">
+    <img src="rizwan.jpg" alt="Mohamed Rizwan S.K photo" />
+
+    <nav class="navlinks" aria-label="Main navigation">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </aside>
+
+
+
+
+
+
+</head>
+<body>
+
+
+  <!-- glow cursor -->
+  <div class="cursor" id="cursor"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" aria-label="Sidebar with navigation and profile">
+    <img src="rizwan.jpg" alt="Mohamed Rizwan S.K photo" />
+
+    <nav class="navlinks" aria-label="Main navigation">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+
+    <!-- HOME -->
+    <section id="home" aria-labelledby="home-heading">
+      <h2 id="home-heading">Hello — I'm <strong>Mohamed Rizwan S.K</strong></h2>
+      <p class="lead"><strong>Software developer | Web developer</strong></p>
+      <p class="lead">Aspiring software developer seeking to apply my foundation in programming and passion for learning to contribute to impactful projects and grow within a collaborative team environment that solves real-world problems.</p>
+
+      <div style="margin-top:18px">
+        <a class="btn" href="Java__Rizwan.pdf" target="_blank" rel="noopener">📄 View Resume</a>
+        <a class="btn ghost" href="https://www.linkedin.com/in/mohamed-rizwan-b263b9349" target="_blank" rel="noopener">🔗 LinkedIn</a>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" aria-labelledby="about-heading">
+      <h2 id="about-heading">01. About Me</h2>
+      <p class="lead">I am an MCA graduate from Jamal Mohamed College with a CGPA of 8.43. I am skilled in web development, Java programming, Python programming, and algorithm design. I am seeking opportunities to apply my technical skills to build efficient, user-friendly web applications and contribute to innovative software projects.</p>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" aria-labelledby="skills-heading">
+      <h2 id="skills-heading">02. My Technical Skills</h2>
+
+    <div class="card-grid" role="list">
+  <article class="card" role="listitem" aria-label="Java and Spring Boot" style="perspective:600px;">
+    <img src="java_spring.png" alt="Java & Spring Boot" 
+         style="width:100%; border-radius:12px; transform-style: preserve-3d; transition: transform 0.5s;" />
+    <h3>Java &amp; Spring Boot</h3>
+    <p>Experienced building REST APIs, enterprise applications and backend services using Java and Spring Boot.</p>
+  </article>
+
+  <article class="card" role="listitem" aria-label="Python and Flask" style="perspective:600px;">
+    <img src="python_django.png" alt="Python & Django" 
+         style="width:100%; border-radius:12px; transform-style: preserve-3d; transition: transform 0.5s;" />
+    <h3>Python &amp; Django</h3>
+    <p>Proficient with backend development and building web applications using Flask as a microframework.</p>
+  </article>
+
+  <article class="card" role="listitem" aria-label="Web Technologies" style="perspective:600px;">
+    <img src="web_tech.png" alt="Web Technologies" 
+         style="width:100%; border-radius:12px; transform-style: preserve-3d; transition: transform 0.5s;" />
+    <h3>Web Technologies</h3>
+    <p>HTML, CSS, JavaScript, and React — building responsive, accessible frontends and interactive UIs.</p>
+  </article>
+
+  <article class="card" role="listitem" aria-label="Databases" style="perspective:600px;">
+    <img src="databases.png" alt="Databases" 
+         style="width:100%; border-radius:12px; transform-style: preserve-3d; transition: transform 0.5s;" />
+    <h3>Databases</h3>
+    <p>MySQL and MongoDB for relational and document-oriented storage; comfortable with queries and schema design.</p>
+  </article>
+
+  <article class="card" role="listitem" aria-label="Tools" style="perspective:600px;">
+    <img src="tools.png" alt="Tools" 
+         style="width:100%; border-radius:12px; transform-style: preserve-3d; transition: transform 0.5s;" />
+    <h3>Tools</h3>
+    <p>VS Code, Eclipse, NetBeans — debugging, building, and deploying applications efficiently.</p>
+  </article>
+</div>
+
+<script>
+  const skillCards = document.querySelectorAll('.card');
+
+  skillCards.forEach(card => {
+    const img = card.querySelector('img');
+
+    card.addEventListener('mouseenter', () => {
+      img.style.transform = 'rotateY(15deg) rotateX(5deg)';
+    });
+
+    card.addEventListener('mouseleave', () => {
+      img.style.transform = 'rotateY(0deg) rotateX(0deg)';
+    });
+  });
+</script>
+
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" aria-labelledby="projects-heading">
+      <h2 id="projects-heading">03. Projects</h2>
+
+     <div class="card-grid">
+  <article class="card" style="perspective: 600px;">
+    <img src="face_recognition.png" alt="Face Recognition Project" 
+         style="width:100%; border-radius:12px; transform-style: preserve-3d; transition: transform 0.3s;" />
+    <h3>Credit Card Transaction Based on Face Recognition</h3>
+    <p>To develop a secure and user-friendly credit card transaction system that leverages face recognition technology...</p>
+  </article>
+
+  <article class="card" style="perspective: 600px;">
+    <img src="bank_system.png" alt="Bank Management System" 
+         style="width:100%; border-radius:12px; transform-style: preserve-3d; transition: transform 0.3s;" />
+    <h3>Bank Management System</h3>
+    <p>Built a system for managing banking tasks like account handling and transactions using Java...</p>
+  </article>
+
+  <article class="card" style="perspective: 600px;">
+    <img src="cab_booking.png" alt="Go Cab Move Track" 
+         style="width:100%; border-radius:12px; transform-style: preserve-3d; transition: transform 0.3s;" />
+    <h3>Go Cab Move Track</h3>
+    <p>A Car/Cab Booking System is a web or mobile application that allows users to book rides in real-time...</p>
+  </article>
+</div>
+
+<script>
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(card => {
+    const img = card.querySelector('img');
+
+    // Mouse move 3D tilt
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const rotateX = ((y - centerY) / centerY) * 10;
+      const rotateY = ((x - centerX) / centerX) * 10;
+
+      card.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg)`;
+      img.style.transform = `rotateY(${rotateY}deg) rotateX(${-rotateX/2}deg)`;
+    });
+
+    // Reset on mouse leave
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+      img.style.transform = 'rotateX(0deg) rotateY(0deg)';
+    });
+
+    // Rotate on click
+    card.addEventListener('click', () => {
+      img.style.transform += ' rotateY(180deg)';
+    });
+  });
+</script>
+
+      <div style="margin-top:14px">
+        <a class="btn" href="https://github.com/Rizwan-9659" target="_blank" rel="noopener">⭐ Explore My GitHub</a>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" aria-labelledby="experience-heading">
+      <h2 id="experience-heading">04. Experience & Credentials</h2>
+
+      <div class="card-grid">
+        <article class="card">
+          <h3>Python Programming Intern</h3>
+          <p><strong>SAMCORE SOLUTION</strong> — March 2025</p>
+          <p class="lead">Worked on backend scripting, automation tasks and assisted with face recognition model integration.</p>
+        </article>
+
+        <article class="card">
+          <h3>Workshop — Unleashing Innovative Technologies</h3>
+          <p><strong>HCC &amp; JMC College</strong> — Feb 2024</p>
+          <p class="lead">Participated in hands-on sessions about modern web stacks and collaborative development.</p>
+        </article>
+
+        <article class="card">
+          <h3>Award — MEAN Stack Web Development</h3>
+          <p><strong>Jamal Mohamed College</strong> — June 2024</p>
+          <p class="lead">Recognized for project excellence in a full-stack web development course.</p>
+        </article>
+      </div>
+
+      <div style="margin-top:16px">
+        <h3 style="margin-bottom:8px">Certifications</h3>
+        <ul class="clean">
+          <b><li>Full Stack Development - CSC, 2022</li>
+          <li>(Programming in java)Core Java,Advance Java Training (duration-Aug-Nov,2025)-Anudip foundation</li>
+          <li>Internsip Common Aptitude Text(ICAT)-Participation certificate</li>
+          <li>Java Fundamental Course - Uniq Technologies</li>
+          <li>Java OOPs Course - Uniq Technologies</li>
+          <li>Python Training - Besant Technologies</li>
+          <li>Python Project - JMC, May 2025</li>
+          <li>Soft Skill Development - NPTEL (Swayam)</li>
+          <li>Quality Standards of Products - Partician College</li>
+          <li>Data Analysis with Python - Cognitive Class</li></b>
+        </ul>
+      </div>
+
+      <div style="margin-top:14px">
+        <a class="btn" href="cert.html" target="_blank" rel="noopener">📜 View All Certificates</a>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" aria-labelledby="contact-heading">
+      <h2 id="contact-heading">05. Let's Connect</h2>
+
+      <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:10px">
+        <div style="flex:1;min-width:240px">
+          <p><strong>Email:</strong> <a class="link" href="mailto:rizwanmohamed042@gmail.com">rizwanmohamed042@gmail.com</a></p>
+          <p><strong>Location:</strong> Chennai, Tamil Nadu</p>
+        </div>
+
+        <div style="flex:1;min-width:320px">
+          <!-- Contact form (uses Google Apps Script endpoint) -->
+          <form id="contact-form" aria-label="Contact form">
+            <input type="text" name="name" placeholder="Your Name" required />
+            <input type="email" name="email" placeholder="Your Email" required />
+            <input type="text" name="subject" placeholder="Subject" required />
+            <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+<button type="submit" 
+  style="
+    display: inline-block;
+    padding: 15px 25px;
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 12px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    background: linear-gradient(45deg, #ff00f7, #00ffd5, #0095ff, #7a00ff);
+    background-size: 400% 400%;
+    animation: btnGlow 6s linear infinite;
+    box-shadow: 0 0 15px #ff00d4;
+    transition: 0.25s;
+    transform: translateZ(10px);
+  ">
+  Send Message
+</button>
+
+<!-- Add inline keyframes for glow animation -->
+<style>
+@keyframes btnGlow {
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+</style>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © <span id="year"></span> Mohamed Rizwan S.K — Built with passion • <a  class="link" href="Java__Rizwan.pdf" target="_blank" rel="noopener">Download Resume</a>
+    </footer>
+  </main>
+<script>
+  // Cursor follow
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = (e.clientX - 10) + 'px';
+    cursor.style.top = (e.clientY - 10) + 'px';
+  });
+
+  // Night/Morning Mode Toggle
+  const themeBtn = document.getElementById('themeToggle');
+  let isNight = true;
+  themeBtn.addEventListener('click', () => {
+    if(isNight){
+      // Morning mode
+      document.documentElement.style.setProperty('--bg1','#fafafa');
+      document.documentElement.style.setProperty('--bg2','#eeeeee');
+      document.documentElement.style.setProperty('--bg3','#e0e0e0');
+      document.documentElement.style.setProperty('--text','#1a1a1a');
+      document.documentElement.style.setProperty('--neon','#ff7f00');
+      document.documentElement.style.setProperty('--border-soft','rgba(0,0,0,0.2)');
+      themeBtn.textContent = '☀️ Morning';
+    } else {
+      // Night mode
+      document.documentElement.style.setProperty('--bg1','#1d1d2c');
+      document.documentElement.style.setProperty('--bg2','#3b185f');
+      document.documentElement.style.setProperty('--bg3','#5c2e91');
+      document.documentElement.style.setProperty('--text','#ffffff');
+      document.documentElement.style.setProperty('--neon','#ff00d4');
+      document.documentElement.style.setProperty('--border-soft','rgba(0,0,0,0.4)');
+      themeBtn.textContent = '🌙 Night';
+    }
+    isNight = !isNight;
+  });
+</script>
+
+  <!-- Scripts -->
+  <script>
+    // set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // cursor follow
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = (e.clientX - 9) + 'px';
+      cursor.style.top = (e.clientY - 9) + 'px';
+    });
+
+    // theme toggle (subtle inversion)
+    const themeBtn = document.getElementById('themeBtn');
+    themeBtn.addEventListener('click', () => {
+      document.documentElement.style.setProperty('--bg1', '#f7f7fb');
+      document.documentElement.style.setProperty('--bg2', '#f0f3f8');
+      document.documentElement.style.setProperty('--bg3', '#e8ebf1');
+      document.documentElement.style.setProperty('--text', '#0b1020');
+      document.documentElement.style.setProperty('--muted', '#445066');
+      themeBtn.textContent = 'Light';
+      // to toggle back, a simple reload or refresh of page is fine — this keeps implementation small
+    });
+
+    // open resume/certs helpers
+    function openResume(){ window.open('Java__Rizwan.pdf','_blank'); }
+    function openCertificates(){ window.open('cert.html','_blank'); }
+
+    // contact form submit via Google Apps Script
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyta1VgjUJgunvQ_5wkjVFQUdZa2jaNZbnBtwWgMJQdsalkQM1BD9QWiQEcwCP_A6ri/exec';
+    const form = document.getElementById('contact-form');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      fetch(scriptURL, { method:'POST', body: fd })
+        .then(res => {
+          if(res.ok){
+            alert('Message Sent Successfully');
+            form.reset();
+          } else {
+            alert('Failed to send message. Please try again later.');
+          }
+        })
+        .catch(err => { alert('Error: ' + err.message); });
+    });
+  </script>
+</body>
+</html>
